@@ -18,6 +18,7 @@ export class LocalService {
   localsList: Local[];
 
   constructor(private webLocalService: WebLocalService) {
+
   }
 
 

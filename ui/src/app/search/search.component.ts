@@ -42,8 +42,8 @@ export class SearchComponent implements AfterViewInit {
   startPointForm: FormGroup;
 
   startData =  { name: '', selectRadius: ''};
-  
-  
+
+
   constructor(
     private router: Router,
     private localService: LocalService,
@@ -146,7 +146,8 @@ export class SearchComponent implements AfterViewInit {
 
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
-      this.localsList = data as Local[];
+      this.localsList = data as Local[]
+      console.log(this.localsList)
     });
   }
 

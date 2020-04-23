@@ -40,6 +40,7 @@ import { StartPointService } from './services/start-point.service';
 import { RouteMapComponent } from './route-map/route-map.component';
 import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
 import { TreeComponent } from './tree/tree.component';
+import { Http, HttpModule } from '@angular/http';
 
 let config = new AuthServiceConfig([
   {
@@ -93,6 +94,7 @@ export function provideConfig() {
     SocialLoginModule,
     TreeViewModule,
     HttpClientModule,
+    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     GoogleMapsModule,
@@ -108,6 +110,7 @@ export function provideConfig() {
     },
     LocalService,
     StartPointService,
+    //Http
   ],
 
   bootstrap: [AppComponent],
