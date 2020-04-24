@@ -27,7 +27,8 @@ export class WebLocalService {
 
   get(): Observable<Local[]> {
     console.log(this.LOCAL_API_URL)
-    return this.http.get('/api/local/local/1').pipe(
+    
+    return this.http.get('/local/local/1').pipe(
       map((result: any) => {
         return [result];
       })

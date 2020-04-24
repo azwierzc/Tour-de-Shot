@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { enableRipple } from '@syncfusion/ej2-base';
+import { ProductCategoryService } from '../services/product-category.service';
+import { ProductCategory } from '../models/ProductCategory';
 enableRipple(true);
 
 @Component({
@@ -7,24 +9,58 @@ enableRipple(true);
   // specifies the template string for the TreeView component with CheckBox
   template: `<div id='treeparent'><ejs-treeview id='treeelement' [fields]='field' [showCheckBox]='showCheckBox'></ejs-treeview></div>`
 })
-export class TreeComponent {
-
-  constructor() {
+export class TreeComponent  implements OnInit{
+  public productCategoryList: object[];
+  constructor(private productCategoryService: ProductCategoryService) {
   }
   // defined the array of data
-  public countries: object[] = [
-    { id: 1, name: 'Napoje alkoholowe', hasChild: true, expanded: true },
-    { id: 2, pid: 1, name: 'piwo' },
-    { id: 3, pid: 1, name: 'wódka' },
-    { id: 4, pid: 1, name: 'whisky' },
-    { id: 6, pid: 1, name: 'drinki' },
-    { id: 7, name: 'Napoje bezalkoholowe', hasChild: true },
-    { id: 8, pid: 7, name: 'sok pomarańczowy' },
-    { id: 9, pid: 7, name: 'sok jabłkowy' },
-    { id: 10, pid: 7, name: 'smoothie owocowe' },
-  ];
+
+
   // maps the appropriate column to fields property
-  public field: object = { dataSource: this.countries, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
-  // set the CheckBox to the TreeView
-  public showCheckBox = true;
+public countries: object[];
+public field: object;
+ public showCheckBox = true;
+
+  ngOnInit(): void {
+    console.log("tree is init")
+    // this.getProductCategoryList();
+    this.getProductCategoryList();
+    // maps the appropriate column to fields property
+
+    this.productCategoryService.getProductCategory().subscribe(data => {
+      this.productCategoryList = data as object[]
+      this.countries =   this.productCategoryList;
+      
+      console.log("prductCategoryList")
+      console.log(this.productCategoryList)
+      // maps the appropriate column to fields property
+      let field: object = { dataSource: this.productCategoryList, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
+      // set the CheckBox to the TreeView
+      let showCheckBox = true;
+      this.field = { dataSource: this.countries, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
+      this.showCheckBox = true;
+      // set the CheckBox to the TreeView
+    });
+
+
+// this.field = { dataSource: this.countries, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
+    // set the CheckBox to the TreeView
+
+  }
+
+
+  getProductCategoryList(){
+    this.productCategoryService.getProductCategory().subscribe(data => {
+      this.productCategoryList = data as object[]
+
+      console.log("prductCategoryList")
+      console.log(this.productCategoryList)
+      // maps the appropriate column to fields property
+      let field: object = { dataSource: this.productCategoryList, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
+      // set the CheckBox to the TreeView
+      let showCheckBox = true;
+    });
+
+  }
+
 }

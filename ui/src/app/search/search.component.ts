@@ -16,6 +16,8 @@ import {MapComponent} from '../map/map.component';
 import {Subject, BehaviorSubject, Observable} from 'rxjs';
 import {StartPointService} from '../services/start-point.service';
 import {Location} from '@angular/common';
+import { ProductCategoryService } from '../services/product-category.service';
+import { ProductCategory } from '../models/ProductCategory';
 
 @Component({
   selector: 'app-search',
@@ -43,12 +45,15 @@ export class SearchComponent implements AfterViewInit {
 
   startData =  { name: '', selectRadius: ''};
 
+  public productCategoryList: ProductCategory[];
+
 
   constructor(
     private router: Router,
     private localService: LocalService,
     private startPointService: StartPointService,
     private webLocalService: WebLocalService,
+    private productCategoryService: ProductCategoryService,
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
@@ -74,6 +79,9 @@ export class SearchComponent implements AfterViewInit {
   }
 
   ngOnInit():void {
+    this.getLocalsList();
+    this.getProductCategoryList();
+
     this.startPointForm = new FormGroup({
       'name': new FormControl (this.startData.name, Validators.required),
       'selectRadius': new FormControl (this.startData.selectRadius, Validators.required)
@@ -86,9 +94,6 @@ export class SearchComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-
-    this.getLocalsList();
-
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
       componentRestrictions: {country: 'pl'}
@@ -151,6 +156,17 @@ export class SearchComponent implements AfterViewInit {
 
     });
   }
+
+  getProductCategoryList() {
+    this.productCategoryService.getProductCategory().subscribe(data => {
+      this.productCategoryList = data as ProductCategory[]
+
+      console.log("prductCategoryList")
+      console.log(this.productCategoryList)
+
+    });
+  }
+
 
 
   getLocalById(id: number) {

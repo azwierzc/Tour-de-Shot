@@ -1,5 +1,5 @@
-import { Product } from './Product';
+import { ProductCategory } from './ProductCategory';
 
 export interface Menu {
-  products: Array<Product>;
+  products: Array<ProductCategory>;
 } 
