@@ -11,4 +11,5 @@ export interface Local {
   address: Address;
   details: Details;
   menu: Menu;
+  distance: number;
 }

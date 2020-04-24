@@ -1,4 +1,4 @@
 export interface Coordinates {
   lat: number;
-  long: number;
+  lon: number;
 }

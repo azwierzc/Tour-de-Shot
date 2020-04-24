@@ -119,7 +119,7 @@ export class RouteMapComponent implements AfterViewInit {
 
       this.filteredByDistLocalsList.forEach(element => {
         this.marker = new google.maps.Marker({
-          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon),
           map: this.map,
           title: element.name,
           icon: this.localIcon,

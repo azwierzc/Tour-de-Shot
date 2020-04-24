@@ -18,7 +18,7 @@ export class WebLocalService {
   readonly ROOT_URL;
 
   constructor(private http: HttpClient) {
-    this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
+    //this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
     this.LOCAL_API_URL = env.localApiUrl;
 
 
@@ -26,14 +26,14 @@ export class WebLocalService {
 
 
   get(): Observable<Local[]> {
-
-    // return this.http.get(`${this.ROOT_URL}`);
-
+    console.log(this.LOCAL_API_URL)
     return this.http.get('/api/local/local/1').pipe(
-      map((result: Local[]) => {
-        return result;
+      map((result: any) => {
+        return [result];
       })
     );
 
   }
+
+
 }

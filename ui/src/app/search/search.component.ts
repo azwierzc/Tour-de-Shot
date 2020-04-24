@@ -147,7 +147,8 @@ export class SearchComponent implements AfterViewInit {
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
       this.localsList = data as Local[]
-      console.log(this.localsList)
+      console.log(this.localsList[0])
+
     });
   }
 
@@ -162,7 +163,7 @@ export class SearchComponent implements AfterViewInit {
     if (this.localsList) {
       this.filteredByDistLocalsList = [];
       this.localsList.forEach(element => {
-        let localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.long);
+        let localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon);
         this.localsCoordinates.push(localCoordinates);
         const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(localCoordinates, this.startPoint) / 1000;
 
